@@ -20,7 +20,7 @@ namespace BovineCodeCracker
         /// <param name="size">How long is the code?</param>
         /// <param name="depth">How many unique symbols in the code?</param>
         /// <returns>A collection of strings.</returns>
-        public static IEnumerable<string> Permutations(int size, int depth)
+        public IEnumerable<string> Permutations(int size, int depth)
         {
             IntToSymbol its = new IntToSymbol();
             if (size > 0)

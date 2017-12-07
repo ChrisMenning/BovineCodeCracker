@@ -673,8 +673,9 @@ namespace BovineCodeCracker
                 // If this is the first turn, add all permutations to the list.
                 if (this.thisTurn < 2)
                 {
+                    PermutationMaker pm = new PermutationMaker();
                     // Add all permutations to an input list.
-                    foreach (string s in PermutationMaker.Permutations(this.gameControl.CodeLength, this.gameControl.CodeDepth))
+                    foreach (string s in pm.Permutations(this.gameControl.CodeLength, this.gameControl.CodeDepth))
                     {
                         this.gameControl.ActivePlayer.MyInputList.Add(s);
                     }
