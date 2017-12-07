@@ -171,6 +171,7 @@ namespace BovineCodeCracker
         /// </summary>
         private void DrawEntryBoxes()
         {
+            IntToSymbol its = new IntToSymbol();
             int xPos = 20;
             for (int i = 0; i < this.gameControl.CodeLength; i++)
             {
@@ -197,43 +198,8 @@ namespace BovineCodeCracker
                     if (result == true)
                     {
                         soundConfirm.Play();
-                        string emoji = string.Empty;
 
-                        switch (tempInt)
-                        {
-                            case 0:
-                                emoji = "☀";
-                                break;
-                            case 1:
-                                emoji = "☾";
-                                break;
-                            case 2:
-                                emoji = "✯";
-                                break;
-                            case 3:
-                                emoji = "⚓";
-                                break;
-                            case 4:
-                                emoji = "❄";
-                                break;
-                            case 5:
-                                emoji = "⚕";
-                                break;
-                            case 6:
-                                emoji = "☘";
-                                break;
-                            case 7:
-                                emoji = "☠";
-                                break;
-                            case 8:
-                                emoji = "⚖";
-                                break;
-                            case 9:
-                                emoji = "♔";
-                                break;
-                        }
-
-                        textboxEntry.Text = emoji;
+                        textboxEntry.Text = its.convert(tempInt);
 
                         foreach (Picker p in Pickers)
                         {

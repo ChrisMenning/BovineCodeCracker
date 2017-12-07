@@ -411,52 +411,6 @@ namespace BovineCodeCracker
         }
 
         /// <summary>
-        /// Converts integers to our special symbols.
-        /// </summary>
-        /// <param name="input">A passed-in integer.</param>
-        /// <returns>A single character as a string.</returns>
-        private static string IntToEmoji(int input)
-        {
-            string emoji = string.Empty;
-
-            switch (input)
-            {
-                case 0:
-                    emoji = "☀";
-                    break;
-                case 1:
-                    emoji = "☾";
-                    break;
-                case 2:
-                    emoji = "✯";
-                    break;
-                case 3:
-                    emoji = "⚓";
-                    break;
-                case 4:
-                    emoji = "❄";
-                    break;
-                case 5:
-                    emoji = "⚕";
-                    break;
-                case 6:
-                    emoji = "☘";
-                    break;
-                case 7:
-                    emoji = "☠";
-                    break;
-                case 8:
-                    emoji = "⚖";
-                    break;
-                case 9:
-                    emoji = "♔";
-                    break;
-            }
-
-            return emoji;
-        }
-
-        /// <summary>
         /// Generates all permutations for a given code length and depth.
         /// NOTE: This works with integers, not special unicode symbols. Output from this
         /// method must be later converted.
@@ -466,6 +420,7 @@ namespace BovineCodeCracker
         /// <returns>A collection of strings.</returns>
         private static IEnumerable<string> Permutations(int size, int depth)
         {
+            IntToSymbol its = new IntToSymbol();
             if (size > 0)
             {
                 foreach (string s in Permutations(size - 1, depth))
@@ -474,7 +429,7 @@ namespace BovineCodeCracker
 
                     for (int i = 0; i < depth; i++)
                     {
-                        allChars += IntToEmoji(i);
+                        allChars += its.convert(i);
                     }
 
                     foreach (char c in allChars)
@@ -665,45 +620,11 @@ namespace BovineCodeCracker
 
             for (int i = 0; i < this.gameControl.CodeDepth; i++)
             {
+                IntToSymbol its = new IntToSymbol();
                 Picker picker = new Picker(this, this.gameControl, i);
                 picker.Name = "Picker" + i;
 
-                string emoji = string.Empty;
-                switch (i)
-                {
-                    case 0:
-                        emoji = "☀";
-                        break;
-                    case 1:
-                        emoji = "☾";
-                        break;
-                    case 2:
-                        emoji = "✯";
-                        break;
-                    case 3:
-                        emoji = "⚓";
-                        break;
-                    case 4:
-                        emoji = "❄";
-                        break;
-                    case 5:
-                        emoji = "⚕";
-                        break;
-                    case 6:
-                        emoji = "☘";
-                        break;
-                    case 7:
-                        emoji = "☠";
-                        break;
-                    case 8:
-                        emoji = "⚖";
-                        break;
-                    case 9:
-                        emoji = "♔";
-                        break;
-                }
-
-                picker.Text = emoji.ToString();
+                picker.Text = its.convert(i);
 
                 picker.Width = this.SquareSize * 2 / 3;
                 picker.Height = this.SquareSize * 2 / 3;
@@ -746,6 +667,7 @@ namespace BovineCodeCracker
         {
             if (this.gameControl.ActivePlayer.AttemptsUsed < 1)
             {
+                IntToSymbol its = new IntToSymbol();
                 Random rand = new Random();
                 List<int> randomNumbers = Enumerable.Range(0, this.gameControl.CodeDepth).OrderBy(x => rand.Next()).Take(this.gameControl.CodeDepth).ToList();
 
@@ -754,7 +676,7 @@ namespace BovineCodeCracker
                 for (int i = 0; i < this.gameControl.CodeLength; i++)
                 {
                     int tempChar = randomNumbers[rand.Next(0, randomNumbers.Count() - 1)];
-                    codeToBuildOn = codeToBuildOn + IntToEmoji(tempChar);
+                    codeToBuildOn = codeToBuildOn + its.convert(tempChar);
                     randomNumbers.Remove(tempChar);
                 }
 

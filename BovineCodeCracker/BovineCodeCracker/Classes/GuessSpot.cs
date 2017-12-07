@@ -117,43 +117,9 @@ namespace BovineCodeCracker
                     soundConfirm.Play();
                     lastText = result.ToString(); // Make sure Last Text keeps this from triggering again after conversion.
 
-                    string emoji = string.Empty;
-
-                    switch (tempInt)
-                    {
-                        case 0:
-                            emoji = "☀";
-                            break;
-                        case 1:
-                            emoji = "☾";
-                            break;
-                        case 2:
-                            emoji = "✯";
-                            break;
-                        case 3:
-                            emoji = "⚓";
-                            break;
-                        case 4:
-                            emoji = "❄";
-                            break;
-                        case 5:
-                            emoji = "⚕";
-                            break;
-                        case 6:
-                            emoji = "☘";
-                            break;
-                        case 7:
-                            emoji = "☠";
-                            break;
-                        case 8:
-                            emoji = "⚖";
-                            break;
-                        case 9:
-                            emoji = "♔";
-                            break;
-                    }
-
-                    this.Text = emoji;
+                    // Convert those ints to symbols.
+                    IntToSymbol its = new IntToSymbol();
+                    this.Text = its.convert(tempInt);
 
                     foreach (Picker p in gameBoard.Pickers)
                     {
