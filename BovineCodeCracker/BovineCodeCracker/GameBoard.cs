@@ -158,7 +158,12 @@ namespace BovineCodeCracker
         /// </summary>
         ~GameBoard()
         {
-
+            GameControl.P1.MyInputList.Clear();
+            GameControl.P2.MyInputList.Clear();
+            GameControl.P1.MyOutputList.Clear();
+            GameControl.P2.MyOutputList.Clear();
+            GameControl.P1.SecretCode = string.Empty;
+            GameControl.P2.SecretCode = string.Empty;
         }
 
         /// <summary>
