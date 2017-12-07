@@ -984,7 +984,6 @@ namespace BovineCodeCracker
 
         private void BullSense(List<AISpot> whereDaBullsAt)
         {
-
             // Now look at each previous guess, and try to determine which symbol is responsible for the bulls.
             if (whereDaBullsAt.Count() > 0)
             {
