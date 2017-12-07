@@ -39,7 +39,15 @@ namespace BovineCodeCracker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GameController());
+            try
+            {
+                Application.Run(new GameController());
+            }
+            catch
+            {
+                MessageBox.Show("To a cow, a bug is a seasoning.");
+            }
+            
         }
     }
 }
