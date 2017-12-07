@@ -736,7 +736,6 @@ namespace BovineCodeCracker
         private async void FindPossibleBullsOrCows()
         {
             int myBullsCount = 0;
-            int myCowsCount = 0;
             int guessCounter = 0;
 
             // Loop through every previous guess.
@@ -771,9 +770,8 @@ namespace BovineCodeCracker
                         }
 
                         myBullsCount = 0;
-                        myCowsCount = 0;
 
-                        // Compare spots. A match means this character might be responsible for a bull or a cow.
+                        // Compare spots. A match means this character might be responsible for either a bull or a cow.
                         for (int k = 0; k < this.gameControl.CodeLength; k++)
                         {
                             if (guessSpots[k].Value == permSpots[k].Value)
@@ -782,22 +780,10 @@ namespace BovineCodeCracker
                                 guessSpots[k].Value = string.Empty;
                                 permSpots[k].Value = string.Empty;
                             }
-                            else if (guessSpots[k].Value != permSpots[k].Value && guessSpots[k].Value != string.Empty)
-                            {
-                                // See if this is a cow.
-                                foreach (AISpot ais in permSpots)
-                                {
-                                    if (guessSpots[k].Value == ais.Value)
-                                    {
-                                        myCowsCount++;
-                                        permSpots[k].Value = string.Empty;
-                                    }
-                                }
-                            }
                         }
 
                         // See if this permutation gets the same number of bulls as what we just had.
-                        // If so, add it to our new OUTPUT list.
+                        // If so, add it to the new OUTPUT list.
                         if (myBullsCount == Regex.Matches(this.gameControl.ActivePlayer.ListOfResults[guessCounter].Text, "🐂").Count)
                         {
                             this.gameControl.ActivePlayer.MyOutputList.Add(perm);
