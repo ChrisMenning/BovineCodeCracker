@@ -367,6 +367,7 @@ namespace BovineCodeCracker
         /// </summary>
         private void DrawPickerBox()
         {
+            IntToSymbol its = new IntToSymbol();
             this.Pickers = new List<Picker>();
             int pickerXpos = 20;
 
@@ -375,42 +376,7 @@ namespace BovineCodeCracker
                 Picker picker = new Picker(this, this.gameControl, i);
                 picker.Name = "Picker" + i;
 
-                string emoji = string.Empty;
-                switch (i)
-                {
-                    case 0:
-                        emoji = "☀";
-                        break;
-                    case 1:
-                        emoji = "☾";
-                        break;
-                    case 2:
-                        emoji = "✯";
-                        break;
-                    case 3:
-                        emoji = "⚓";
-                        break;
-                    case 4:
-                        emoji = "❄";
-                        break;
-                    case 5:
-                        emoji = "⚕";
-                        break;
-                    case 6:
-                        emoji = "☘";
-                        break;
-                    case 7:
-                        emoji = "☠";
-                        break;
-                    case 8:
-                        emoji = "⚖";
-                        break;
-                    case 9:
-                        emoji = "♔";
-                        break;
-                }
-
-                picker.Text = emoji.ToString();
+                picker.Text = its.convert(i);
 
                 picker.Width = 35;
                 picker.Height = 35;
