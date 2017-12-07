@@ -776,6 +776,8 @@ namespace BovineCodeCracker
             if (this.GameOver == false)
             {
                 await this.UpdateBotMouth("Hang on...");
+
+                // If this is the first turn, add all permutations to the list.
                 if (this.thisTurn < 2)
                 {
                     // Add all permutations to an input list.
@@ -785,11 +787,17 @@ namespace BovineCodeCracker
                     }
                 }
 
-                // Remove all prior gueses from input list.
-                await this.RemoveUsedGuessesFromPermuations(this.gameControl.ActivePlayer.MyInputList);
-
+                // Figure out which spots in previous guesses may have been responsible for a result containing 
+                // either bulls or cows. 
+                Console.WriteLine("Finding Bulls or Cows");
                 FindPossibleBullsOrCows();
+                Console.WriteLine("Input list size: " + gameControl.ActivePlayer.MyInputList.Count);
+
+                // Infer where bulls might be, and add them 
+                Console.WriteLine("Inferring where bulls may be");
                 BullSense(this.AIinferredBulls());
+
+                Console.WriteLine("Deducing where bulls are not.");
                 CowSense(this.AIdeducedNoBulls());
 
                 // Remove used guesses.
@@ -901,7 +909,7 @@ namespace BovineCodeCracker
                 if (this.gameControl.ActivePlayer.MyOutputList.Count() > 0)
                 {
                     // Assuming MyOutputList has multiple guess candidates inside, clear out the inputList 
-                    // and put the output list into it. This way, while analyzing the next previous turn,
+                    // and put the output list into it. This way, next time it analyzes the previous turn
                     // it will be re-sorting a previously sorted list to further eliminate possiblities.
                     this.gameControl.ActivePlayer.MyInputList.Clear();
                     foreach (string myValue in this.gameControl.ActivePlayer.MyOutputList)
@@ -949,6 +957,7 @@ namespace BovineCodeCracker
             // If there are at least two guesses with at least two bulls, compare each guess to find similarities.
             if (pastGuessesWith2Bulls.Count() > 1)
             {
+                Console.WriteLine("Found " + pastGuessesWith2Bulls.Count() + " past guesses with 2 bulls.");
                 // For each member of this list...
                 for (int i = 0; i < pastGuessesWith2Bulls.Count(); i++)
                 {
@@ -973,6 +982,8 @@ namespace BovineCodeCracker
                 }
             }
 
+            Console.WriteLine("Found "+ unfilteredBullSpots.Count + " unfiltered bull spots.");
+
             foreach (AISpot i in unfilteredBullSpots)
             {
                 int matchCounter = 0;
@@ -983,12 +994,13 @@ namespace BovineCodeCracker
                         matchCounter++;
                         if (matchCounter > 1)
                         {
+                            // Console.WriteLine("Found a self match?");
                             inferredBullSpots.Add(i);
                         }
                     }
                 }
             }
-
+            Console.WriteLine("Permutations with inferred bull matches: " + inferredBullSpots.Count);
             return inferredBullSpots;
         }
 
@@ -1025,6 +1037,8 @@ namespace BovineCodeCracker
             // If there are at least two guesses with at least two cows, compare each guess to find similarities.
             if (pastGuessesWith2Cows.Count() > 1)
             {
+                Console.WriteLine("Found " + pastGuessesWith2Cows.Count + " past guesses with two cows and no bulls.");
+
                 // For each member of this list...
                 for (int i = 0; i < pastGuessesWith2Cows.Count(); i++)
                 {
@@ -1047,6 +1061,8 @@ namespace BovineCodeCracker
                 }
             }
 
+            Console.WriteLine("Found " + unfilteredCowSpots.Count + " unfilted cow spots.");
+
             foreach (AISpot i in unfilteredCowSpots)
             {
                 int matchCounter = 0;
@@ -1063,6 +1079,7 @@ namespace BovineCodeCracker
                 }
             }
 
+            Console.WriteLine("Permutations that match deduction of where bulls are not: " + deducedNoBullSpots.Count);
             return deducedNoBullSpots;
         }
 
@@ -1076,15 +1093,15 @@ namespace BovineCodeCracker
                 List<string> candidates = new List<string>();
 
                 // For each permutation in the input list...
-                for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
+                for (int i = 0; i < this.gameControl.ActivePlayer.MyInputList.Count(); i++)
                 {
                     for (int j = 0; j < this.gameControl.CodeLength; j++)
                     {
                         foreach (AISpot bullSpot in whereDaBullsAt)
                         {
-                            if (this.gameControl.ActivePlayer.MyOutputList[i] == bullSpot.Name && (this.gameControl.ActivePlayer.MyOutputList[i][j].ToString() == bullSpot.Value))
+                            if (this.gameControl.ActivePlayer.MyInputList[i] == bullSpot.Name && (this.gameControl.ActivePlayer.MyInputList[i][j].ToString() == bullSpot.Value))
                             {
-                                candidates.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
+                                candidates.Add(this.gameControl.ActivePlayer.MyInputList[i]);
                             }
                         }
                     }
@@ -1093,13 +1110,11 @@ namespace BovineCodeCracker
                 if (candidates.Count > 0)
                 {
                     // Now let's remove everything but those that match our inferred bull locations.
-                    this.gameControl.ActivePlayer.MyOutputList.Clear();
+                    this.gameControl.ActivePlayer.MyInputList.Clear();
                     foreach (string candidate in candidates)
                     {
-                        this.gameControl.ActivePlayer.MyOutputList.Add(candidate);
+                        this.gameControl.ActivePlayer.MyInputList.Add(candidate);
                     }
-
-                    this.gameControl.ActivePlayer.MyOutputList.Clear();
                 }
             }
         }
@@ -1112,15 +1127,15 @@ namespace BovineCodeCracker
                 List<string> rejects = new List<string>();
 
                 // For each permutation in the input list...
-                for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
+                for (int i = 0; i < this.gameControl.ActivePlayer.MyInputList.Count(); i++)
                 {
                     for (int j = 0; j < this.gameControl.CodeLength; j++)
                     {
                         foreach (AISpot noBullSpot in whereDaBullsAint)
                         {
-                            if (this.gameControl.ActivePlayer.MyOutputList[i] == noBullSpot.Name && (this.gameControl.ActivePlayer.MyOutputList[i][j].ToString() == noBullSpot.Value))
+                            if (this.gameControl.ActivePlayer.MyInputList[i] == noBullSpot.Name && (this.gameControl.ActivePlayer.MyInputList[i][j].ToString() == noBullSpot.Value))
                             {
-                                rejects.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
+                                rejects.Add(this.gameControl.ActivePlayer.MyInputList[i]);
                             }
                         }
                     }
@@ -1133,18 +1148,18 @@ namespace BovineCodeCracker
 
                     foreach (string reject in rejects)
                     {
-                        for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
+                        for (int i = 0; i < this.gameControl.ActivePlayer.MyInputList.Count(); i++)
                         {
-                            if (this.gameControl.ActivePlayer.MyOutputList[i] == reject)
+                            if (this.gameControl.ActivePlayer.MyInputList[i] == reject)
                             {
-                                sanitization.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
+                                sanitization.Add(this.gameControl.ActivePlayer.MyInputList[i]);
                             }
                         }
                     }
 
                     foreach (string s in sanitization)
                     {
-                        this.gameControl.ActivePlayer.MyOutputList.Remove(s);
+                        this.gameControl.ActivePlayer.MyInputList.Remove(s);
                     }
                 }
             }
