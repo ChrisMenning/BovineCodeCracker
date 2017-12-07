@@ -331,6 +331,7 @@ namespace BovineCodeCracker
         /// </summary>
         private void GenerateSecretCode()
         {
+            IntToSymbol its = new IntToSymbol();
             Random rand = new Random();
             List<int> randomNumbers = Enumerable.Range(0, this.gameControl.CodeDepth).OrderBy(x => rand.Next()).Take(this.gameControl.CodeDepth).ToList();
 
@@ -339,50 +340,16 @@ namespace BovineCodeCracker
                 Console.WriteLine("Randomly selecting character " + i);
                 int tempChar = randomNumbers[rand.Next(0, randomNumbers.Count() - 1)];
 
-                string emoji = string.Empty;
-
-                switch (tempChar)
-                {
-                    case 0:
-                        emoji = "☀";
-                        break;
-                    case 1:
-                        emoji = "☾";
-                        break;
-                    case 2:
-                        emoji = "✯";
-                        break;
-                    case 3:
-                        emoji = "⚓";
-                        break;
-                    case 4:
-                        emoji = "❄";
-                        break;
-                    case 5:
-                        emoji = "⚕";
-                        break;
-                    case 6:
-                        emoji = "☘";
-                        break;
-                    case 7:
-                        emoji = "☠";
-                        break;
-                    case 8:
-                        emoji = "⚖";
-                        break;
-                    case 9:
-                        emoji = "♔";
-                        break;
-                }
+                string symbol = its.convert(i);
 
                 if (this.gameControl.Versus == true)
                 {
-                    this.gameControl.ActivePlayer.SecretCode = this.gameControl.ActivePlayer.SecretCode + emoji;
+                    this.gameControl.ActivePlayer.SecretCode = this.gameControl.ActivePlayer.SecretCode + symbol;
                 }
                 else
                 {
                     this.gameControl.ActivePlayer.SecretCode = this.gameControl.ActivePlayer.SecretCode + "0"; // You have to give the player some code, even though it's not used.
-                    this.gameControl.Opponent.SecretCode = this.gameControl.Opponent.SecretCode + emoji;
+                    this.gameControl.Opponent.SecretCode = this.gameControl.Opponent.SecretCode + symbol;
                 }
 
                 randomNumbers.Remove(tempChar);
