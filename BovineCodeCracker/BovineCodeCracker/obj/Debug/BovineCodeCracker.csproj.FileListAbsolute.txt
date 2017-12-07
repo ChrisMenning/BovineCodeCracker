@@ -13,12 +13,3 @@ C:\Users\Chris\Desktop\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeC
 C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\bin\Debug\BovineCodeCracker.exe.config
 C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.exe
 C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.pdb
-C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\bin\Debug\BovineCodeCracker.exe
-C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\bin\Debug\BovineCodeCracker.pdb
-C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.csprojResolveAssemblyReference.cache
-C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.CodeEnterScreen.resources
-C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.GameBoard.resources
-C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.GameController.resources
-C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.HowToPlay.resources
-C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.Properties.Resources.resources
-C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.csproj.GenerateResource.Cache
