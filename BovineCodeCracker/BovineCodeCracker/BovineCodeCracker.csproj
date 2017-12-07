@@ -54,6 +54,7 @@
     <Compile Include="Classes\LabelResults.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Classes\PermutationMaker.cs" />
     <Compile Include="Classes\Picker.cs">
       <SubType>Component</SubType>
     </Compile>
