@@ -492,54 +492,6 @@ namespace BovineCodeCracker
             }
         }
 
-        private void StyleGuessesLabel(Label l)
-        {
-            l.Text = "Attempts:";
-            l.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
-            l.AutoSize = true;
-            l.BackColor = Color.Transparent;
-            l.ForeColor = Color.White;
-        }
-
-        private void StyleNameLabel(Label l)
-        {
-            l.Text = this.gameControl.P1.Name;
-            l.Font = new Font("Century Gothic", this.SquareSize * 1 / 3, FontStyle.Bold);
-            l.AutoSize = true;
-            l.BackColor = Color.Transparent;
-            l.ForeColor = Color.White;
-        }
-
-        private void StyleHeaderLabel(Label l)
-        {
-            l.Text = "Results:";
-            l.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
-            l.AutoSize = true;
-            l.BackColor = Color.Transparent;
-            l.ForeColor = Color.White;
-        }
-
-        private void NewGameSpot(int xPos, int yPos, int y)
-        {
-            GuessSpot gs;
-
-            for (int x = 0; x < this.GameControl.CodeLength; x++)
-            {
-                gs = this.attemptsArrayP2[x, y];
-                gs = new GuessSpot(this.GameControl, this);
-                gs.Row = y;
-                gs.Col = x;
-                gs.Width = this.SquareSize;
-                gs.Height = this.SquareSize;
-                xPos = xPos + gs.Width;
-                gs.Location = new Point(xPos, yPos);
-
-                // Finally, add it.
-                this.Controls.Add(gs);
-                this.attemptsArrayP2[x, y] = gs;
-            }
-        }
-
         /// <summary>
         /// Draws Player 1's board.
         /// </summary>
@@ -557,23 +509,50 @@ namespace BovineCodeCracker
             // Make a name label.
             Label p1nameLabel = new Label();
             p1nameLabel.Location = new Point(this.SquareSize * 1 / 4, this.SquareSize);
-            StyleNameLabel(p1nameLabel);
+            p1nameLabel.Text = this.gameControl.P1.Name;
+            p1nameLabel.Font = new Font("Century Gothic", this.SquareSize * 1 / 3, FontStyle.Bold);
+            p1nameLabel.AutoSize = true;
+            p1nameLabel.BackColor = Color.Transparent;
+            p1nameLabel.ForeColor = Color.White;
             this.Controls.Add(p1nameLabel);
 
             // Label parts of the board.
             Label p1guessesLabel = new Label();
-            StyleGuessesLabel(p1guessesLabel);
             p1guessesLabel.Location = new Point(this.SquareSize * 1 / 4, (this.SquareSize * 2) * 3 / 4);
+            p1guessesLabel.Text = "Attempts:";
+            p1guessesLabel.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
+            p1guessesLabel.AutoSize = true;
+            p1guessesLabel.BackColor = Color.Transparent;
+            p1guessesLabel.ForeColor = Color.White;
             this.Controls.Add(p1guessesLabel);
-
             Label p1resultsHeaderLabel = new Label();
             p1resultsHeaderLabel.Location = new Point((this.SquareSize * this.gameControl.CodeLength) + (this.SquareSize * 1 / 4), (this.SquareSize * 2) * 3 / 4);
-            StyleHeaderLabel(p1resultsHeaderLabel);
+            p1resultsHeaderLabel.Text = "Results:";
+            p1resultsHeaderLabel.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
+            p1resultsHeaderLabel.AutoSize = true;
             this.Controls.Add(p1resultsHeaderLabel);
+            p1resultsHeaderLabel.BackColor = Color.Transparent;
+            p1resultsHeaderLabel.ForeColor = Color.White;
 
             for (int y = 0; y < this.GameControl.AttemptsAllowed; y++)
             {
-                NewGameSpot(xPos, yPos, y);
+                GuessSpot gs;
+
+                for (int x = 0; x < this.GameControl.CodeLength; x++)
+                {
+                    gs = this.attemptsArrayP1[x, y];
+                    gs = new GuessSpot(this.GameControl, this);
+                    gs.Row = y;
+                    gs.Col = x;
+                    gs.Width = this.SquareSize;
+                    gs.Height = this.SquareSize;
+                    gs.Location = new Point(xPos, yPos);
+                    xPos = xPos + this.SquareSize;
+
+                    // Finally, add it.
+                    this.Controls.Add(gs);
+                    this.attemptsArrayP1[x, y] = gs;
+                }
 
                 labelOutputResults = new LabelResults(this);
                 this.listOfResultsP1.Add(labelOutputResults);
@@ -609,18 +588,29 @@ namespace BovineCodeCracker
             // Make a name label.
             Label p2nameLabel = new Label();
             p2nameLabel.Location = new Point(this.SquareSize * this.gameControl.CodeLength * 2, this.SquareSize);
-            StyleNameLabel(p2nameLabel);
+            p2nameLabel.Text = this.gameControl.P2.Name;
+            p2nameLabel.Font = new Font("Century Gothic", this.SquareSize * 1 / 3, FontStyle.Bold);
+            p2nameLabel.AutoSize = true;
+            p2nameLabel.BackColor = Color.Transparent;
+            p2nameLabel.ForeColor = Color.White;
             this.Controls.Add(p2nameLabel);
 
             // Label parts of the board.
             Label p2guessesLabel = new Label();
             p2guessesLabel.Location = new Point((this.SquareSize * this.gameControl.CodeLength) * 2, (this.SquareSize * 2) * 3 / 4);
-            StyleGuessesLabel(p2guessesLabel);
+            p2guessesLabel.Text = "Attempts:";
+            p2guessesLabel.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
+            p2guessesLabel.AutoSize = true;
+            p2guessesLabel.BackColor = Color.Transparent;
+            p2guessesLabel.ForeColor = Color.White;
             this.Controls.Add(p2guessesLabel);
-
             Label p2resultsHeaderLabel = new Label();
             p2resultsHeaderLabel.Location = new Point(this.SquareSize * this.gameControl.CodeLength * 3, (this.SquareSize * 2) * 3 / 4);
-            StyleHeaderLabel(p2resultsHeaderLabel);
+            p2resultsHeaderLabel.Text = "Results:";
+            p2resultsHeaderLabel.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
+            p2resultsHeaderLabel.AutoSize = true;
+            p2resultsHeaderLabel.BackColor = Color.Transparent;
+            p2resultsHeaderLabel.ForeColor = Color.White;
             this.Controls.Add(p2resultsHeaderLabel);
 
             int xPos = (this.SquareSize * this.GameControl.CodeLength * 2) - this.SquareSize;
@@ -628,11 +618,26 @@ namespace BovineCodeCracker
 
             for (int y = 0; y < this.GameControl.AttemptsAllowed; y++)
             {
-                NewGameSpot(xPos, yPos, y);
+                GuessSpot gs;
+
+                for (int x = 0; x < this.GameControl.CodeLength; x++)
+                {
+                    gs = this.attemptsArrayP2[x, y];
+                    gs = new GuessSpot(this.GameControl, this);
+                    gs.Row = y;
+                    gs.Col = x;
+                    gs.Width = this.SquareSize;
+                    gs.Height = this.SquareSize;
+                    xPos = xPos + gs.Width;
+                    gs.Location = new Point(xPos, yPos);
+
+                    // Finally, add it.
+                    this.Controls.Add(gs);
+                    this.attemptsArrayP2[x, y] = gs;
+                }
 
                 labelOutputResults = new LabelResults(this);
                 this.listOfResultsP2.Add(labelOutputResults);
-
                 labelOutputResults.Location = new Point(xPos + this.SquareSize, yPos);
                 this.Controls.Add(labelOutputResults);
                 labelOutputResults.Name = labelOutputResults.Name + y;
@@ -772,6 +777,9 @@ namespace BovineCodeCracker
             {
                 await this.UpdateBotMouth("Hang on...");
 
+                int myBullsCount = 0;
+                int myCowsCount = 0;
+
                 List<AISpot> whereDaBullsAt = this.AIinferredBulls();
                 List<AISpot> whereDaBullsAint = this.AIdeducedNoBulls();
 
@@ -787,25 +795,188 @@ namespace BovineCodeCracker
                 // Remove all prior gueses from input list.
                 await this.RemoveUsedGuessesFromPermuations(this.gameControl.ActivePlayer.MyInputList);
 
-                FindPossibleBullsOrCows();
+                int guessCounter = 0;
+
+                // Loop through every previous guess.
+                foreach (string guess in this.gameControl.ActivePlayer.Guesses) 
+                {
+                    if (this.gameControl.ActivePlayer.MyInputList.Count() > 0)
+                    {
+                        await this.UpdateBotMouth("Considering " + this.gameControl.ActivePlayer.MyInputList.Count() + " possibilities.");
+
+                        // For each guess, loop through every permutation in MyInputList.
+                        foreach (string perm in this.gameControl.ActivePlayer.MyInputList) 
+                        {
+                            // Compare the permutation to the guess.
+                            // Turn each of the two strings into a list of AISpots.
+                            List<AISpot> permSpots = new List<AISpot>();
+                            List<AISpot> guessSpots = new List<AISpot>();
+
+                            for (int i = 0; i < this.gameControl.CodeLength; i++)
+                            {
+                                AISpot tempPermSpot = new AISpot();
+                                tempPermSpot.Name = "a" + i;
+                                tempPermSpot.Value = perm.Substring(i, 1);
+                                permSpots.Add(tempPermSpot);
+                            }
+
+                            for (int i = 0; i < this.gameControl.CodeLength; i++)
+                            {
+                                AISpot tempGuessSpot = new AISpot();
+                                tempGuessSpot.Name = "b" + i;
+                                tempGuessSpot.Value = guess.Substring(i, 1);
+                                guessSpots.Add(tempGuessSpot);
+                            }
+
+                            myBullsCount = 0;
+                            myCowsCount = 0;
+
+                            // Compare spots. A match means this character might be responsible for a bull or a cow.
+                            for (int k = 0; k < this.gameControl.CodeLength; k++)
+                            {
+                                if (guessSpots[k].Value == permSpots[k].Value)
+                                {
+                                    myBullsCount++;
+                                    guessSpots[k].Value = string.Empty;
+                                    permSpots[k].Value = string.Empty;
+                                }
+                                else if (guessSpots[k].Value != permSpots[k].Value && guessSpots[k].Value != string.Empty)
+                                {
+                                    // See if this is a cow.
+                                    foreach (AISpot ais in permSpots)
+                                    {
+                                        if (guessSpots[k].Value == ais.Value)
+                                        {
+                                            myCowsCount++;
+                                            permSpots[k].Value = string.Empty;
+                                        }
+                                    }
+                                }
+                            }
+
+                            // See if this permutation gets the same number of bulls as what we just had.
+                            // If so, add it to our new OUTPUT list.
+                            if (myBullsCount == Regex.Matches(this.gameControl.ActivePlayer.ListOfResults[guessCounter].Text, "🐂").Count)
+                            {
+                                this.gameControl.ActivePlayer.MyOutputList.Add(perm);
+                            }
+                        } // end cycling through input list.
+                    }
+
+                    if (this.gameControl.ActivePlayer.MyOutputList.Count() > 0)
+                    {
+                        // Assuming MyOutputList has multiple guess candidates inside, clear out the inputList 
+                        // and put the output list into it. This way, while analyzing the next previous turn,
+                        // it will be re-sorting a previously sorted list to further eliminate possiblities.
+                        this.gameControl.ActivePlayer.MyInputList.Clear();
+                        foreach (string myValue in this.gameControl.ActivePlayer.MyOutputList)
+                        {
+                            this.gameControl.ActivePlayer.MyInputList.Add(myValue);
+                        }
+
+                        this.gameControl.ActivePlayer.MyOutputList.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Congratulations! BessieBot's brain is broken in such a way \n that should not even be possible. \n");
+                    }
+
+                    guessCounter++;
+                }
+
+                // end guess.
 
                 /*
                  * BULL COMMON SENSE
                  */
 
                 // Now look at each previous guess, and try to determine which symbol is responsible for the bulls.
-                BullSense(whereDaBullsAt);
+                if (whereDaBullsAt.Count() > 0)
+                {
+                    // Make a new list for storing the permutations that match our inferred bull locations.
+                    List<string> candidates = new List<string>();
+
+                    // For each permutation in the input list...
+                    for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
+                    {
+                        for (int j = 0; j < this.gameControl.CodeLength; j++)
+                        {
+                            foreach (AISpot bullSpot in whereDaBullsAt)
+                            {
+                                if (this.gameControl.ActivePlayer.MyOutputList[i] == bullSpot.Name && (this.gameControl.ActivePlayer.MyOutputList[i][j].ToString() == bullSpot.Value))
+                                {
+                                    candidates.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
+                                }
+                            }
+                        }
+                    }
+
+                    if (candidates.Count > 0)
+                    {
+                        // Now let's remove everything but those that match our inferred bull locations.
+                        this.gameControl.ActivePlayer.MyOutputList.Clear();
+                        foreach (string candidate in candidates)
+                        {
+                            this.gameControl.ActivePlayer.MyOutputList.Add(candidate);
+                        }
+
+                        this.gameControl.ActivePlayer.MyOutputList.Clear();
+                    }
+                }
 
                 /*
                  * WHAT ABOUT THE COWS?
                  * 
-                 * A cow is better than no bulls or cows, but any spot where a cow definitely is, is a spot
-                 * where a bull definitely is not. Make a list of where cows are, and remove them from
-                 * the list of spots being counted.
+                 * Sometimes the AI is so preoccupied with producing cows that it fails to recognize a cow
+                 * is still not as good as a bull. The AI must be told that if it knows where a cow definitely
+                 * is located, then it also knows where a bull definitely is not.
                  */
 
-                CowSense(whereDaBullsAint);
+                if (whereDaBullsAint.Count() > 0)
+                {
+                    // Make a new list for storing the permutations that match our deduced NOBULLS spots.
+                    List<string> rejects = new List<string>();
+
+                    // For each permutation in the input list...
+                    for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
+                    {
+                        for (int j = 0; j < this.gameControl.CodeLength; j++)
+                        {
+                            foreach (AISpot noBullSpot in whereDaBullsAint)
+                            {
+                                if (this.gameControl.ActivePlayer.MyOutputList[i] == noBullSpot.Name && (this.gameControl.ActivePlayer.MyOutputList[i][j].ToString() == noBullSpot.Value))
+                                {
+                                    rejects.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
+                                }
+                            }
+                        }
+                    }
+
+                    if (rejects.Count > 0)
+                    {
+                        // Now let's remove all of our noBull spot rejects from MyOutputList.
+                        List<string> sanitization = new List<string>();
+
+                        foreach (string reject in rejects)
+                        {
+                            for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
+                            {
+                                if (this.gameControl.ActivePlayer.MyOutputList[i] == reject)
+                                {
+                                    sanitization.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
+                                }
+                            }
+                        }
+
+                        foreach (string s in sanitization)
+                        {
+                            this.gameControl.ActivePlayer.MyOutputList.Remove(s);
+                        }
+                    }
+                } 
                 
+                // End cow decisions.
+
                 /*
                  * FALLBACK
                  * 
@@ -845,183 +1016,6 @@ namespace BovineCodeCracker
 
                 // Write them to the guess spots on the board.
                 this.AIenterGuess(finalOutputGuess);
-            }
-        }
-
-        private void BullSense(List<AISpot> whereDaBullsAt)
-        {
-            if (whereDaBullsAt.Count() > 0)
-            {
-                // Make a new list for storing the permutations that match our inferred bull locations.
-                List<string> candidates = new List<string>();
-
-                // For each permutation in the input list...
-                for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
-                {
-                    for (int j = 0; j < this.gameControl.CodeLength; j++)
-                    {
-                        foreach (AISpot bullSpot in whereDaBullsAt)
-                        {
-                            // If there's a match, add it to the output list.
-                            if (this.gameControl.ActivePlayer.MyOutputList[i] == bullSpot.Name && (this.gameControl.ActivePlayer.MyOutputList[i][j].ToString() == bullSpot.Value))
-                            {
-                                candidates.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
-                            }
-                        }
-                    }
-                }
-
-                if (candidates.Count > 0)
-                {
-                    // Now remove everything but those that match the inferred bull locations.
-                    this.gameControl.ActivePlayer.MyOutputList.Clear();
-                    foreach (string candidate in candidates)
-                    {
-                        this.gameControl.ActivePlayer.MyOutputList.Add(candidate);
-                    }
-
-                    this.gameControl.ActivePlayer.MyOutputList.Clear();
-                }
-            }
-        }
-
-        private void CowSense(List<AISpot> whereDaBullsAint)
-        {
-            if (whereDaBullsAint.Count() > 0)
-            {
-                // Make a new list for storing the permutations that match our deduced NOBULLS spots.
-                List<string> rejects = new List<string>();
-
-                // For each permutation in the input list...
-                for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
-                {
-                    for (int j = 0; j < this.gameControl.CodeLength; j++)
-                    {
-                        foreach (AISpot noBullSpot in whereDaBullsAint)
-                        {
-                            if (this.gameControl.ActivePlayer.MyOutputList[i] == noBullSpot.Name && (this.gameControl.ActivePlayer.MyOutputList[i][j].ToString() == noBullSpot.Value))
-                            {
-                                rejects.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
-                            }
-                        }
-                    }
-                }
-
-                if (rejects.Count > 0)
-                {
-                    // Now let's remove all of the noBull spot rejects from MyOutputList.
-                    List<string> sanitization = new List<string>();
-
-                    foreach (string reject in rejects)
-                    {
-                        for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
-                        {
-                            if (this.gameControl.ActivePlayer.MyOutputList[i] == reject)
-                            {
-                                sanitization.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
-                            }
-                        }
-                    }
-
-                    foreach (string s in sanitization)
-                    {
-                        this.gameControl.ActivePlayer.MyOutputList.Remove(s);
-                    }
-                }
-            }
-        }
-
-        private async void FindPossibleBullsOrCows()
-        {
-            int myBullsCount = 0;
-            int myCowsCount = 0;
-            int guessCounter = 0;
-
-            // Loop through every previous guess.
-            foreach (string guess in this.gameControl.ActivePlayer.Guesses)
-            {
-                if (this.gameControl.ActivePlayer.MyInputList.Count() > 0)
-                {
-                    await this.UpdateBotMouth("Considering " + this.gameControl.ActivePlayer.MyInputList.Count() + " possibilities.");
-
-                    // For each guess, loop through every permutation in MyInputList.
-                    foreach (string perm in this.gameControl.ActivePlayer.MyInputList)
-                    {
-                        // Compare the permutation to the guess.
-                        // Turn each of the two strings into a list of AISpots.
-                        List<AISpot> permSpots = new List<AISpot>();
-                        List<AISpot> guessSpots = new List<AISpot>();
-
-                        for (int i = 0; i < this.gameControl.CodeLength; i++)
-                        {
-                            AISpot tempPermSpot = new AISpot();
-                            tempPermSpot.Name = "a" + i;
-                            tempPermSpot.Value = perm.Substring(i, 1);
-                            permSpots.Add(tempPermSpot);
-                        }
-
-                        for (int i = 0; i < this.gameControl.CodeLength; i++)
-                        {
-                            AISpot tempGuessSpot = new AISpot();
-                            tempGuessSpot.Name = "b" + i;
-                            tempGuessSpot.Value = guess.Substring(i, 1);
-                            guessSpots.Add(tempGuessSpot);
-                        }
-
-                        myBullsCount = 0;
-                        myCowsCount = 0;
-
-                        // Compare spots. A match means this character might be responsible for a bull or a cow.
-                        for (int k = 0; k < this.gameControl.CodeLength; k++)
-                        {
-                            if (guessSpots[k].Value == permSpots[k].Value)
-                            {
-                                myBullsCount++;
-                                guessSpots[k].Value = string.Empty;
-                                permSpots[k].Value = string.Empty;
-                            }
-                            else if (guessSpots[k].Value != permSpots[k].Value && guessSpots[k].Value != string.Empty)
-                            {
-                                // See if this is a cow.
-                                foreach (AISpot ais in permSpots)
-                                {
-                                    if (guessSpots[k].Value == ais.Value)
-                                    {
-                                        myCowsCount++;
-                                        permSpots[k].Value = string.Empty;
-                                    }
-                                }
-                            }
-                        }
-
-                        // See if this permutation gets the same number of bulls as what we just had.
-                        // If so, add it to our new OUTPUT list.
-                        if (myBullsCount == Regex.Matches(this.gameControl.ActivePlayer.ListOfResults[guessCounter].Text, "🐂").Count)
-                        {
-                            this.gameControl.ActivePlayer.MyOutputList.Add(perm);
-                        }
-                    } // end cycling through input list.
-                }
-
-                if (this.gameControl.ActivePlayer.MyOutputList.Count() > 0)
-                {
-                    // Assuming MyOutputList has multiple guess candidates inside, clear out the inputList 
-                    // and put the output list into it. This way, while analyzing the next previous turn,
-                    // it will be re-sorting a previously sorted list to further eliminate possiblities.
-                    this.gameControl.ActivePlayer.MyInputList.Clear();
-                    foreach (string myValue in this.gameControl.ActivePlayer.MyOutputList)
-                    {
-                        this.gameControl.ActivePlayer.MyInputList.Add(myValue);
-                    }
-
-                    this.gameControl.ActivePlayer.MyOutputList.Clear();
-                }
-                else
-                {
-                    MessageBox.Show("Congratulations! BessieBot's brain is broken in such a way \n that should not even be possible. \n");
-                }
-
-                guessCounter++;
             }
         }
 
