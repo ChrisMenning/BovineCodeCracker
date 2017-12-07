@@ -794,92 +794,18 @@ namespace BovineCodeCracker
                  */
 
                 // Now look at each previous guess, and try to determine which symbol is responsible for the bulls.
-                if (whereDaBullsAt.Count() > 0)
-                {
-                    // Make a new list for storing the permutations that match our inferred bull locations.
-                    List<string> candidates = new List<string>();
-
-                    // For each permutation in the input list...
-                    for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
-                    {
-                        for (int j = 0; j < this.gameControl.CodeLength; j++)
-                        {
-                            foreach (AISpot bullSpot in whereDaBullsAt)
-                            {
-                                if (this.gameControl.ActivePlayer.MyOutputList[i] == bullSpot.Name && (this.gameControl.ActivePlayer.MyOutputList[i][j].ToString() == bullSpot.Value))
-                                {
-                                    candidates.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
-                                }
-                            }
-                        }
-                    }
-
-                    if (candidates.Count > 0)
-                    {
-                        // Now let's remove everything but those that match our inferred bull locations.
-                        this.gameControl.ActivePlayer.MyOutputList.Clear();
-                        foreach (string candidate in candidates)
-                        {
-                            this.gameControl.ActivePlayer.MyOutputList.Add(candidate);
-                        }
-
-                        this.gameControl.ActivePlayer.MyOutputList.Clear();
-                    }
-                }
+                BullSense(whereDaBullsAt);
 
                 /*
                  * WHAT ABOUT THE COWS?
                  * 
-                 * Sometimes the AI is so preoccupied with producing cows that it fails to recognize a cow
-                 * is still not as good as a bull. The AI must be told that if it knows where a cow definitely
-                 * is located, then it also knows where a bull definitely is not.
+                 * A cow is better than no bulls or cows, but any spot where a cow definitely is, is a spot
+                 * where a bull definitely is not. Make a list of where cows are, and remove them from
+                 * the list of spots being counted.
                  */
 
-                if (whereDaBullsAint.Count() > 0)
-                {
-                    // Make a new list for storing the permutations that match our deduced NOBULLS spots.
-                    List<string> rejects = new List<string>();
-
-                    // For each permutation in the input list...
-                    for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
-                    {
-                        for (int j = 0; j < this.gameControl.CodeLength; j++)
-                        {
-                            foreach (AISpot noBullSpot in whereDaBullsAint)
-                            {
-                                if (this.gameControl.ActivePlayer.MyOutputList[i] == noBullSpot.Name && (this.gameControl.ActivePlayer.MyOutputList[i][j].ToString() == noBullSpot.Value))
-                                {
-                                    rejects.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
-                                }
-                            }
-                        }
-                    }
-
-                    if (rejects.Count > 0)
-                    {
-                        // Now let's remove all of our noBull spot rejects from MyOutputList.
-                        List<string> sanitization = new List<string>();
-
-                        foreach (string reject in rejects)
-                        {
-                            for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
-                            {
-                                if (this.gameControl.ActivePlayer.MyOutputList[i] == reject)
-                                {
-                                    sanitization.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
-                                }
-                            }
-                        }
-
-                        foreach (string s in sanitization)
-                        {
-                            this.gameControl.ActivePlayer.MyOutputList.Remove(s);
-                        }
-                    }
-                } 
+                CowSense(whereDaBullsAint);
                 
-                // End cow decisions.
-
                 /*
                  * FALLBACK
                  * 
@@ -919,6 +845,89 @@ namespace BovineCodeCracker
 
                 // Write them to the guess spots on the board.
                 this.AIenterGuess(finalOutputGuess);
+            }
+        }
+
+        private void BullSense(List<AISpot> whereDaBullsAt)
+        {
+            if (whereDaBullsAt.Count() > 0)
+            {
+                // Make a new list for storing the permutations that match our inferred bull locations.
+                List<string> candidates = new List<string>();
+
+                // For each permutation in the input list...
+                for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
+                {
+                    for (int j = 0; j < this.gameControl.CodeLength; j++)
+                    {
+                        foreach (AISpot bullSpot in whereDaBullsAt)
+                        {
+                            // If there's a match, add it to the output list.
+                            if (this.gameControl.ActivePlayer.MyOutputList[i] == bullSpot.Name && (this.gameControl.ActivePlayer.MyOutputList[i][j].ToString() == bullSpot.Value))
+                            {
+                                candidates.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
+                            }
+                        }
+                    }
+                }
+
+                if (candidates.Count > 0)
+                {
+                    // Now remove everything but those that match the inferred bull locations.
+                    this.gameControl.ActivePlayer.MyOutputList.Clear();
+                    foreach (string candidate in candidates)
+                    {
+                        this.gameControl.ActivePlayer.MyOutputList.Add(candidate);
+                    }
+
+                    this.gameControl.ActivePlayer.MyOutputList.Clear();
+                }
+            }
+        }
+
+        private void CowSense(List<AISpot> whereDaBullsAint)
+        {
+            if (whereDaBullsAint.Count() > 0)
+            {
+                // Make a new list for storing the permutations that match our deduced NOBULLS spots.
+                List<string> rejects = new List<string>();
+
+                // For each permutation in the input list...
+                for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
+                {
+                    for (int j = 0; j < this.gameControl.CodeLength; j++)
+                    {
+                        foreach (AISpot noBullSpot in whereDaBullsAint)
+                        {
+                            if (this.gameControl.ActivePlayer.MyOutputList[i] == noBullSpot.Name && (this.gameControl.ActivePlayer.MyOutputList[i][j].ToString() == noBullSpot.Value))
+                            {
+                                rejects.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
+                            }
+                        }
+                    }
+                }
+
+                if (rejects.Count > 0)
+                {
+                    // Now let's remove all of the noBull spot rejects from MyOutputList.
+                    List<string> sanitization = new List<string>();
+
+                    foreach (string reject in rejects)
+                    {
+                        for (int i = 0; i < this.gameControl.ActivePlayer.MyOutputList.Count(); i++)
+                        {
+                            if (this.gameControl.ActivePlayer.MyOutputList[i] == reject)
+                            {
+                                sanitization.Add(this.gameControl.ActivePlayer.MyOutputList[i]);
+                            }
+                        }
+                    }
+
+                    foreach (string s in sanitization)
+                    {
+                        this.gameControl.ActivePlayer.MyOutputList.Remove(s);
+                    }
+                }
             }
         }
 
