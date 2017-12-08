@@ -459,15 +459,8 @@ namespace BovineCodeCracker
                 for (int x = 0; x < this.GameControl.CodeLength; x++)
                 {
                     gs = new GuessSpot(this.GameControl, this);
-                    gs.Row = y;
-                    gs.Col = x;
-                    gs.Width = this.SquareSize;
-                    gs.Height = this.SquareSize;
-                    gs.Location = new Point(xPos, yPos);
+                    GuessSpotFormatter(gs, x, y, xPos, yPos);
                     xPos = xPos + this.SquareSize;
-
-
-                    // Finally, add it.
                     this.Controls.Add(gs);
                     this.attemptsArrayP1[x, y] = gs;
                 }
@@ -530,14 +523,8 @@ namespace BovineCodeCracker
                 for (int x = 0; x < this.GameControl.CodeLength; x++)
                 {
                     gs = new GuessSpot(this.GameControl, this);
-                    gs.Row = y;
-                    gs.Col = x;
-                    gs.Width = this.SquareSize;
-                    gs.Height = this.SquareSize;
-                    gs.Location = new Point(xPos, yPos);
+                    GuessSpotFormatter(gs, x, y, xPos, yPos);
                     xPos = xPos + this.SquareSize;
-
-                    // Finally, add it.
                     this.Controls.Add(gs);
                     this.attemptsArrayP2[x, y] = gs;
                 }
@@ -588,6 +575,14 @@ namespace BovineCodeCracker
             l.ForeColor = Color.White;
         }
 
+        private void GuessSpotFormatter(GuessSpot gs, int x, int y, int xPos, int yPos)
+        {
+            gs.Row = y;
+            gs.Col = x;
+            gs.Width = this.SquareSize;
+            gs.Height = this.SquareSize;
+            gs.Location = new Point(xPos, yPos);
+        }
 
         /// <summary>
         /// Draws the Symbol Pickers on the board.
