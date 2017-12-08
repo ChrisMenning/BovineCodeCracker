@@ -20,7 +20,7 @@ namespace BovineCodeCracker
             switch (i)
             {
                 case 0:
-                    symbol = "☀";
+                    symbol = "🌮";
                     break;
                 case 1:
                     symbol = "☾";
