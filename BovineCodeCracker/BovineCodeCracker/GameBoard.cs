@@ -420,6 +420,32 @@ namespace BovineCodeCracker
             }
         }
 
+        private void NameLabelFormatter(Label l)
+        {
+            l.AutoSize = true;
+            l.BackColor = Color.Transparent;
+            l.ForeColor = Color.White;
+            l.Font = new Font("Century Gothic", this.SquareSize * 1 / 3, FontStyle.Bold);
+        }
+
+        private void GuessesLabelFormatter(Label l)
+        {
+            l.Text = "Attempts:";
+            l.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
+            l.AutoSize = true;
+            l.BackColor = Color.Transparent;
+            l.ForeColor = Color.White;
+        }
+
+        private void ResultsHeaderLabelFormatter(Label l)
+        {
+            l.Text = "Results:";
+            l.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
+            l.AutoSize = true;
+            l.BackColor = Color.Transparent;
+            l.ForeColor = Color.White;
+        }
+
         /// <summary>
         /// Draws Player 1's board.
         /// </summary>
@@ -438,29 +464,19 @@ namespace BovineCodeCracker
             Label p1nameLabel = new Label();
             p1nameLabel.Location = new Point(this.SquareSize * 1 / 4, this.SquareSize);
             p1nameLabel.Text = this.gameControl.P1.Name;
-            p1nameLabel.Font = new Font("Century Gothic", this.SquareSize * 1 / 3, FontStyle.Bold);
-            p1nameLabel.AutoSize = true;
-            p1nameLabel.BackColor = Color.Transparent;
-            p1nameLabel.ForeColor = Color.White;
+            NameLabelFormatter(p1nameLabel);
             this.Controls.Add(p1nameLabel);
 
             // Label parts of the board.
             Label p1guessesLabel = new Label();
             p1guessesLabel.Location = new Point(this.SquareSize * 1 / 4, (this.SquareSize * 2) * 3 / 4);
-            p1guessesLabel.Text = "Attempts:";
-            p1guessesLabel.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
-            p1guessesLabel.AutoSize = true;
-            p1guessesLabel.BackColor = Color.Transparent;
-            p1guessesLabel.ForeColor = Color.White;
+            GuessesLabelFormatter(p1guessesLabel);
             this.Controls.Add(p1guessesLabel);
+
             Label p1resultsHeaderLabel = new Label();
             p1resultsHeaderLabel.Location = new Point((this.SquareSize * this.gameControl.CodeLength) + (this.SquareSize * 1 / 4), (this.SquareSize * 2) * 3 / 4);
-            p1resultsHeaderLabel.Text = "Results:";
-            p1resultsHeaderLabel.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
-            p1resultsHeaderLabel.AutoSize = true;
+            ResultsHeaderLabelFormatter(p1resultsHeaderLabel);
             this.Controls.Add(p1resultsHeaderLabel);
-            p1resultsHeaderLabel.BackColor = Color.Transparent;
-            p1resultsHeaderLabel.ForeColor = Color.White;
 
             for (int y = 0; y < this.GameControl.AttemptsAllowed; y++)
             {
@@ -506,7 +522,6 @@ namespace BovineCodeCracker
         /// </summary>
         private void DrawP2CrackingBoard()
         {
-            // Console.WriteLine("Drawing P2's Cracking Board");
             // Define an array of GuessSpots
             this.attemptsArrayP2 = new GuessSpot[this.GameControl.CodeLength, this.GameControl.AttemptsAllowed];
 
@@ -517,28 +532,18 @@ namespace BovineCodeCracker
             Label p2nameLabel = new Label();
             p2nameLabel.Location = new Point(this.SquareSize * this.gameControl.CodeLength * 2, this.SquareSize);
             p2nameLabel.Text = this.gameControl.P2.Name;
-            p2nameLabel.Font = new Font("Century Gothic", this.SquareSize * 1 / 3, FontStyle.Bold);
-            p2nameLabel.AutoSize = true;
-            p2nameLabel.BackColor = Color.Transparent;
-            p2nameLabel.ForeColor = Color.White;
+            NameLabelFormatter(p2nameLabel);
             this.Controls.Add(p2nameLabel);
 
             // Label parts of the board.
             Label p2guessesLabel = new Label();
             p2guessesLabel.Location = new Point((this.SquareSize * this.gameControl.CodeLength) * 2, (this.SquareSize * 2) * 3 / 4);
-            p2guessesLabel.Text = "Attempts:";
-            p2guessesLabel.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
-            p2guessesLabel.AutoSize = true;
-            p2guessesLabel.BackColor = Color.Transparent;
-            p2guessesLabel.ForeColor = Color.White;
+            GuessesLabelFormatter(p2guessesLabel);
             this.Controls.Add(p2guessesLabel);
+
             Label p2resultsHeaderLabel = new Label();
             p2resultsHeaderLabel.Location = new Point(this.SquareSize * this.gameControl.CodeLength * 3, (this.SquareSize * 2) * 3 / 4);
-            p2resultsHeaderLabel.Text = "Results:";
-            p2resultsHeaderLabel.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
-            p2resultsHeaderLabel.AutoSize = true;
-            p2resultsHeaderLabel.BackColor = Color.Transparent;
-            p2resultsHeaderLabel.ForeColor = Color.White;
+            ResultsHeaderLabelFormatter(p2resultsHeaderLabel);
             this.Controls.Add(p2resultsHeaderLabel);
 
             int xPos = (this.SquareSize * this.GameControl.CodeLength * 2) - this.SquareSize;
