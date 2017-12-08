@@ -84,7 +84,7 @@ namespace BovineCodeCracker
             Label keylabel = new Label();
             keylabel.Location = new Point(this.Location.X, this.Location.Y);
             keylabel.Text = id.ToString();
-            keylabel.Font = new Font(this.Font.FontFamily, 6, FontStyle.Regular);
+            keylabel.Font = new Font(this.Font.FontFamily, this.gb.SquareSize * 1/8, FontStyle.Regular);
             keylabel.Width = 10;
             keylabel.Height = 10;
 

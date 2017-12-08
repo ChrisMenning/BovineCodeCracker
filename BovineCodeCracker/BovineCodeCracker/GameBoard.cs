@@ -130,7 +130,8 @@ namespace BovineCodeCracker
 
             // Set up the board.
             // Responsive SquareSize
-            this.SquareSize = 500 / this.GameControl.AttemptsAllowed;
+            this.SquareSize = 550 / this.GameControl.AttemptsAllowed;
+
             if (this.GameControl.Versus == true)
             {
                 this.Width = (this.SquareSize * this.GameControl.CodeLength * 4) + (this.SquareSize * 1 / 4);
@@ -611,11 +612,11 @@ namespace BovineCodeCracker
 
                 picker.Text = its.convert(i);
 
-                picker.Width = this.SquareSize * 2 / 3;
-                picker.Height = this.SquareSize * 2 / 3;
+                picker.Width = this.SquareSize * 3/4;
+                picker.Height = this.SquareSize * 3/4;
 
                 picker.Location = new Point(pickerXpos, 0);
-                pickerXpos = pickerXpos + (this.SquareSize * 2 / 3);
+                pickerXpos = pickerXpos + (this.SquareSize * 3 / 4);
                 this.Controls.Add(picker);
                 this.Pickers.Add(picker);
             }

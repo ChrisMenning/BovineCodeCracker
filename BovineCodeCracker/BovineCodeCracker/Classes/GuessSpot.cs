@@ -78,7 +78,7 @@ namespace BovineCodeCracker
             this.MaxLength = 1;
             this.Text = "[ ]";
             string lastText = "[ ]";
-            this.Font = new Font(this.Font.FontFamily, this.gameBoard.SquareSize * 5 / 8, FontStyle.Regular);
+            this.Font = new Font(this.Font.FontFamily, this.gameBoard.SquareSize * 9.5f / 16, FontStyle.Regular);
 
             this.GotFocus += (r, y) =>
             {

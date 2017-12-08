@@ -48,11 +48,11 @@ namespace BovineCodeCracker
             this.Text = "\n" + "...";
             this.BorderStyle = BorderStyle.FixedSingle;
             this.BackColor = Color.AliceBlue;
-            this.Font = new Font("Microsoft Sans Serif", this.gameBoard.SquareSize * 1 / 3, FontStyle.Regular);
+            this.Font = new Font("Microsoft Sans Serif", this.gameBoard.SquareSize * 3/16, FontStyle.Regular);
             this.Width = (this.gameBoard.SquareSize * this.gameBoard.GameControl.CodeLength) - (this.gameBoard.SquareSize * 1 / 3);
             this.Height = this.gameBoard.SquareSize;
             this.AutoSize = false;
-            this.TextAlign = ContentAlignment.MiddleLeft;
+            this.TextAlign = ContentAlignment.TopLeft;
         }
     }
 }
