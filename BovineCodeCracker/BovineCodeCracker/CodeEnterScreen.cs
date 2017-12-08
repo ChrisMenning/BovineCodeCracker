@@ -104,7 +104,7 @@ namespace BovineCodeCracker
 
             if (gameControl.Versus == false)
             {
-                gameControl.ActivePlayer.SecretCode = new List<char>();
+                gameControl.ActivePlayer.SecretCode = new List<string>();
                 this.GenerateSecretCode();
             }
 
@@ -263,7 +263,7 @@ namespace BovineCodeCracker
                 {
                     foreach (char c in this.codeText)
                     {
-                        this.gameControl.ActivePlayer.SecretCode.Add(c);
+                        this.gameControl.ActivePlayer.SecretCode.Add(c.ToString());
                     }
                 }
             }
@@ -310,7 +310,7 @@ namespace BovineCodeCracker
         private void buttonGenerateCode_Click(object sender, EventArgs e)
         {
             this.soundGenerate.Play();
-            this.gameControl.ActivePlayer.SecretCode = new List<char>();
+            this.gameControl.ActivePlayer.SecretCode = new List<string>();
             this.GenerateSecretCode();
             if (this.gameControl.ActivePlayer.IsHuman == false)
             {
@@ -351,21 +351,15 @@ namespace BovineCodeCracker
                 int tempChar = randomNumbers[rand.Next(0, randomNumbers.Count() - 1)];
                
                 string symbol = its.convert(tempChar);
-                char symChar;
-                if (char.TryParse(symbol, out symChar))
+                if (this.gameControl.Versus == true)
                 {
-                    if (this.gameControl.Versus == true)
-                    {
-                        this.gameControl.ActivePlayer.SecretCode.Add(symChar);
-                    }
-                    else
-                    {
-                        this.gameControl.ActivePlayer.SecretCode.Add('0'); // You have to give the player some code, even though it's not used.
-                        this.gameControl.Opponent.SecretCode.Add(symChar);
-                    }
+                    this.gameControl.ActivePlayer.SecretCode.Add(symbol);
                 }
-
-                
+                else
+                {
+                    this.gameControl.ActivePlayer.SecretCode.Add("0"); // You have to give the player some code, even though it's not used.
+                    this.gameControl.Opponent.SecretCode.Add(symbol);
+                }
 
                 randomNumbers.Remove(tempChar);
             }

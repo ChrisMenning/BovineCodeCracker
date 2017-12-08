@@ -323,11 +323,11 @@ namespace BovineCodeCracker
                 }
 
                 // Check for cows. (Correct symbol in wrong space.)
-                foreach (int secretSpot in this.gameControl.Opponent.SecretCode)
+                foreach (string secretSpot in this.gameControl.Opponent.SecretCode)
                 {
-                    foreach (int guessSpot in this.gameControl.ActivePlayer.CurrentGuess)
+                    foreach (char guessSpot in this.gameControl.ActivePlayer.CurrentGuess)
                     {
-                        if (guessSpot == secretSpot)
+                        if (guessSpot.ToString() == secretSpot)
                         {
                             // Console.WriteLine("Cow!");
                             this.gameControl.ActivePlayer.ListOfResults[row].Text += "🐄";

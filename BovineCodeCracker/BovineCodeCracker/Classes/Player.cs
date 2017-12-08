@@ -45,7 +45,7 @@ namespace BovineCodeCracker
         /// <summary>
         /// A string for storing the player's secret code.
         /// </summary>
-        private List<char> secretCode;
+        private List<string> secretCode;
 
         /// <summary>
         /// A string for storing the current guess.
@@ -91,7 +91,7 @@ namespace BovineCodeCracker
         {
             this.Name = n;
             this.IsHuman = ih;
-            this.SecretCode = new List<char>();
+            this.SecretCode = new List<string>();
             this.AttemptsUsed = 0;
             this.Guesses = new List<string>();
             this.ListOfResults = new List<Label>();
@@ -180,7 +180,7 @@ namespace BovineCodeCracker
         /// <summary>
         /// Gets or sets the secretCode field.
         /// </summary>
-        public List<char> SecretCode
+        public List<string> SecretCode
         {
             get
             {
