@@ -337,10 +337,10 @@ namespace BovineCodeCracker
 
             for (int i = 0; i < this.gameControl.CodeLength; i++)
             {
-                Console.WriteLine("Randomly selecting character " + i);
+                
                 int tempChar = randomNumbers[rand.Next(0, randomNumbers.Count() - 1)];
-
-                string symbol = its.convert(i);
+               
+                string symbol = its.convert(tempChar);
 
                 if (this.gameControl.Versus == true)
                 {

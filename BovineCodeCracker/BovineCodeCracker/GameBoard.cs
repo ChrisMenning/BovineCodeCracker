@@ -745,13 +745,14 @@ namespace BovineCodeCracker
                 {
                     await this.UpdateBotMouth("Considering " + this.gameControl.ActivePlayer.MyInputList.Count() + " possibilities.");
 
+                    List<AISpot> permSpots = new List<AISpot>();
+                    List<AISpot> guessSpots = new List<AISpot>();
                     // For each guess, loop through every permutation in MyInputList.
                     foreach (string perm in this.gameControl.ActivePlayer.MyInputList)
                     {
                         // Compare the permutation to the guess.
                         // Turn each of the two strings into a list of AISpots.
-                        List<AISpot> permSpots = new List<AISpot>();
-                        List<AISpot> guessSpots = new List<AISpot>();
+                        
 
                         for (int i = 0; i < this.gameControl.CodeLength; i++)
                         {
@@ -788,6 +789,8 @@ namespace BovineCodeCracker
                         {
                             this.gameControl.ActivePlayer.MyOutputList.Add(perm);
                         }
+                        permSpots.Clear();
+                        guessSpots.Clear();
                     } // end cycling through input list.
                 }
 
@@ -964,7 +967,7 @@ namespace BovineCodeCracker
                 }
             }
 
-            Console.WriteLine("Permutations that match deduction of where bulls are not: " + deducedNoBullSpots.Count);
+            Console.WriteLine("Permutations that match deduction of where bulls are not: " + deducedNoBullSpots.Count());
             return deducedNoBullSpots;
         }
 
