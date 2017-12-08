@@ -279,6 +279,10 @@ namespace BovineCodeCracker
                     for (int i = 0; i < this.gameControl.CodeLength; i++)
                     {
                         this.gameControl.ActivePlayer.CurrentGuess += this.attemptsArrayP1[i, row].Text;
+                        if (thisTurn > 0)
+                        {
+                            this.attemptsArrayP1[i, this.thisTurn - 1].Enabled = false;
+                        }
                     }
                 }
                 else
@@ -286,6 +290,11 @@ namespace BovineCodeCracker
                     for (int i = 0; i < this.gameControl.CodeLength; i++)
                     {
                         this.gameControl.ActivePlayer.CurrentGuess += this.attemptsArrayP2[i, row].Text;
+
+                        if (thisTurn > 0)
+                        {
+                            this.attemptsArrayP2[i, this.thisTurn - 1].Enabled = false;
+                        }
                     }
                 }
 
@@ -465,12 +474,14 @@ namespace BovineCodeCracker
                     this.attemptsArrayP1[x, y] = gs;
                 }
 
+                // Player-specific value assignments.
                 labelOutputResults = new LabelResults(this);
                 this.listOfResultsP1.Add(labelOutputResults);
                 labelOutputResults.Location = new Point(xPos, yPos);
                 this.Controls.Add(labelOutputResults);
                 labelOutputResults.Name = labelOutputResults.Name + y;
 
+                // Player-specific coordinate incrementing.
                 xPos = this.SquareSize * 1 / 4;
                 yPos = yPos - this.SquareSize;
             }
@@ -617,7 +628,6 @@ namespace BovineCodeCracker
         /// </summary>
         private void MoveToNextRow()
         {
-            Console.WriteLine(" Trying to move to next row.");
             if (this.GameOver == false)
             {
                 if (this.thisTurn < this.gameControl.AttemptsAllowed)
@@ -633,6 +643,7 @@ namespace BovineCodeCracker
                 this.attemptsArrayP1[0, this.thisTurn].Focus();
             }
         }
+
 
         /// <summary>
         /// The AI's first move.
