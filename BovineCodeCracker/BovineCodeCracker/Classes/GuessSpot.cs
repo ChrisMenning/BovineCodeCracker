@@ -117,7 +117,7 @@ namespace BovineCodeCracker
                     soundConfirm.Play();
                     lastText = result.ToString(); // Make sure Last Text keeps this from triggering again after conversion.
 
-                    // Convert those ints to symbols.
+                    // Convert the ints to symbols.
                     IntToSymbol its = new IntToSymbol();
                     this.Text = its.convert(tempInt);
 
@@ -152,6 +152,11 @@ namespace BovineCodeCracker
                 {                    
                     return;
                 }
+            };
+
+            this.KeyUp += (t, z) =>
+            {
+                this.SelectAll();
             };
         }
 

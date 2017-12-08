@@ -644,7 +644,6 @@ namespace BovineCodeCracker
             }
         }
 
-
         /// <summary>
         /// The AI's first move.
         /// </summary>

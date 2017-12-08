@@ -21,3 +21,4 @@ C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracke
 C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.HowToPlay.resources
 C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.Properties.Resources.resources
 C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.csproj.GenerateResource.Cache
+C:\Users\Chris\Source\Repos\BovineCodeCracker\BovineCodeCracker\BovineCodeCracker\obj\Debug\BovineCodeCracker.csprojResolveAssemblyReference.cache
