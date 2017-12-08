@@ -104,7 +104,7 @@ namespace BovineCodeCracker
 
             if (gameControl.Versus == false)
             {
-                gameControl.ActivePlayer.SecretCode = string.Empty;
+                gameControl.ActivePlayer.SecretCode = new List<char>();
                 this.GenerateSecretCode();
             }
 
@@ -245,7 +245,7 @@ namespace BovineCodeCracker
         /// <param name="e">The event arguments</param>
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
-            if (this.gameControl.ActivePlayer.SecretCode == string.Empty)
+            if (this.gameControl.ActivePlayer.SecretCode.Count == 0)
             {
                 foreach (TextBox tb in this.codeEntryList)
                 {
@@ -261,14 +261,17 @@ namespace BovineCodeCracker
                 }
                 else
                 {
-                    this.gameControl.ActivePlayer.SecretCode = this.codeText;
+                    foreach (char c in this.codeText)
+                    {
+                        this.gameControl.ActivePlayer.SecretCode.Add(c);
+                    }
                 }
             }
             
             if (this.gameControl.Versus == true)
             {
                 // If P1's code is set, but P2's code is not, change turns, close screen, and reopen this screen again.
-                if (this.gameControl.ActivePlayer.SecretCode != string.Empty && this.gameControl.Opponent.SecretCode == string.Empty)
+                if (this.gameControl.ActivePlayer.SecretCode.Count > 0 && this.gameControl.Opponent.SecretCode.Count == 0)
                 {
                     this.gameControl.ChangeTurns();
                     CodeEnterScreen player2CodeEnterScreen = new CodeEnterScreen(this.gameControl, this.gameControl.ActivePlayer);
@@ -277,7 +280,7 @@ namespace BovineCodeCracker
                 }
 
                 // If both players have their codes entered, open a new GameBoard.
-                if (this.gameControl.ActivePlayer.SecretCode != string.Empty && this.gameControl.Opponent.SecretCode != string.Empty)
+                if (this.gameControl.ActivePlayer.SecretCode.Count > 0 && this.gameControl.Opponent.SecretCode.Count > 0)
                 {
                     GameBoard gameBoard = new GameBoard(this.gameControl);
                     this.gameControl.ChangeTurns();
@@ -288,7 +291,7 @@ namespace BovineCodeCracker
             else
             {
                 // Game is in single player mode.
-                if (this.gameControl.ActivePlayer.SecretCode != string.Empty)
+                if (this.gameControl.ActivePlayer.SecretCode.Count > 0)
                 {
                     GameBoard gameBoard = new GameBoard(this.gameControl);
                     gameBoard.Show();
@@ -307,7 +310,7 @@ namespace BovineCodeCracker
         private void buttonGenerateCode_Click(object sender, EventArgs e)
         {
             this.soundGenerate.Play();
-            this.gameControl.ActivePlayer.SecretCode = string.Empty;
+            this.gameControl.ActivePlayer.SecretCode = new List<char>();
             this.GenerateSecretCode();
             if (this.gameControl.ActivePlayer.IsHuman == false)
             {
@@ -348,16 +351,21 @@ namespace BovineCodeCracker
                 int tempChar = randomNumbers[rand.Next(0, randomNumbers.Count() - 1)];
                
                 string symbol = its.convert(tempChar);
+                char symChar;
+                if (char.TryParse(symbol, out symChar))
+                {
+                    if (this.gameControl.Versus == true)
+                    {
+                        this.gameControl.ActivePlayer.SecretCode.Add(symChar);
+                    }
+                    else
+                    {
+                        this.gameControl.ActivePlayer.SecretCode.Add('0'); // You have to give the player some code, even though it's not used.
+                        this.gameControl.Opponent.SecretCode.Add(symChar);
+                    }
+                }
 
-                if (this.gameControl.Versus == true)
-                {
-                    this.gameControl.ActivePlayer.SecretCode = this.gameControl.ActivePlayer.SecretCode + symbol;
-                }
-                else
-                {
-                    this.gameControl.ActivePlayer.SecretCode = this.gameControl.ActivePlayer.SecretCode + "0"; // You have to give the player some code, even though it's not used.
-                    this.gameControl.Opponent.SecretCode = this.gameControl.Opponent.SecretCode + symbol;
-                }
+                
 
                 randomNumbers.Remove(tempChar);
             }
