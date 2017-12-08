@@ -86,6 +86,7 @@ namespace BovineCodeCracker
             // buttonSubmit
             // 
             this.buttonSubmit.BackColor = System.Drawing.Color.OrangeRed;
+            this.buttonSubmit.Enabled = false;
             this.buttonSubmit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSubmit.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSubmit.ForeColor = System.Drawing.Color.Gold;

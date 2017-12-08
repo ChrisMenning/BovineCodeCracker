@@ -149,7 +149,7 @@ namespace BovineCodeCracker
             this.DrawPickerBox();
 
             this.StartPosition = FormStartPosition.CenterScreen;
-
+            this.gameControl.WindowState = FormWindowState.Normal;
             this.thisTurn = this.gameControl.ActivePlayer.AttemptsUsed;
         }
 
@@ -366,7 +366,6 @@ namespace BovineCodeCracker
                         MessageBox.Show(this.gameControl.ActivePlayer.Name + " wins!");
                     }
 
-                    this.gameControl.WindowState = FormWindowState.Normal;
                     this.Close();
                 }
 
@@ -377,7 +376,6 @@ namespace BovineCodeCracker
                     this.GameOver = true;
                     System.Threading.Thread.Sleep(50);
                     MessageBox.Show("You lose." + "the secret code was " + this.gameControl.Opponent.SecretCode + ".");
-                    this.gameControl.WindowState = FormWindowState.Normal;
                     this.Close();
                 }
                 else if (this.gameControl.Versus == true && this.gameControl.ActivePlayer == this.gameControl.P2 &&
@@ -387,7 +385,6 @@ namespace BovineCodeCracker
                     this.GameOver = true;
                     System.Threading.Thread.Sleep(50);
                     MessageBox.Show(this.gameControl.ActivePlayer.Name + " loses." + "\n" + this.gameControl.Opponent.Name + "'s secret code was " + this.gameControl.Opponent.SecretCode + ".");
-                    this.gameControl.WindowState = FormWindowState.Normal;
                     this.Close();
                 }
 

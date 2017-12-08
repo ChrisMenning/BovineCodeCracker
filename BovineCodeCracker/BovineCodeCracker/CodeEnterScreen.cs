@@ -84,11 +84,18 @@ namespace BovineCodeCracker
         public CodeEnterScreen(GameController gameControl, Player whoseTurn)
         {
             this.InitializeComponent();
-
             this.gameControl = gameControl;
             this.whoseTurn = whoseTurn;
-            this.Text = whoseTurn.Name + ", Enter Secret Code";
-            
+
+            if (!gameControl.ActivePlayer.IsHuman)
+            {
+                this.Text = whoseTurn.Name + " is Picking a Code.";
+            }
+            else
+            {
+                this.Text = whoseTurn.Name + ", Enter Secret Code";
+            }
+
             this.UpdateMessage();
 
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -354,6 +361,8 @@ namespace BovineCodeCracker
 
                 randomNumbers.Remove(tempChar);
             }
+
+            buttonSubmit.Enabled = true;
 
             if (this.gameControl.Versus == false)
             {
