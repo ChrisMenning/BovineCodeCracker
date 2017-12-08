@@ -420,32 +420,6 @@ namespace BovineCodeCracker
             }
         }
 
-        private void NameLabelFormatter(Label l)
-        {
-            l.AutoSize = true;
-            l.BackColor = Color.Transparent;
-            l.ForeColor = Color.White;
-            l.Font = new Font("Century Gothic", this.SquareSize * 1 / 3, FontStyle.Bold);
-        }
-
-        private void GuessesLabelFormatter(Label l)
-        {
-            l.Text = "Attempts:";
-            l.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
-            l.AutoSize = true;
-            l.BackColor = Color.Transparent;
-            l.ForeColor = Color.White;
-        }
-
-        private void ResultsHeaderLabelFormatter(Label l)
-        {
-            l.Text = "Results:";
-            l.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
-            l.AutoSize = true;
-            l.BackColor = Color.Transparent;
-            l.ForeColor = Color.White;
-        }
-
         /// <summary>
         /// Draws Player 1's board.
         /// </summary>
@@ -456,9 +430,6 @@ namespace BovineCodeCracker
 
             // Declare a temporary results label.
             LabelResults labelOutputResults;
-
-            int xPos = this.SquareSize * 1 / 4;
-            int yPos = (this.SquareSize * this.GameControl.AttemptsAllowed) + this.SquareSize;
 
             // Make a name label.
             Label p1nameLabel = new Label();
@@ -478,13 +449,15 @@ namespace BovineCodeCracker
             ResultsHeaderLabelFormatter(p1resultsHeaderLabel);
             this.Controls.Add(p1resultsHeaderLabel);
 
+            int xPos = this.SquareSize * 1 / 4;
+            int yPos = (this.SquareSize * this.GameControl.AttemptsAllowed) + this.SquareSize;
+
             for (int y = 0; y < this.GameControl.AttemptsAllowed; y++)
             {
                 GuessSpot gs;
 
                 for (int x = 0; x < this.GameControl.CodeLength; x++)
                 {
-                    gs = this.attemptsArrayP1[x, y];
                     gs = new GuessSpot(this.GameControl, this);
                     gs.Row = y;
                     gs.Col = x;
@@ -492,6 +465,7 @@ namespace BovineCodeCracker
                     gs.Height = this.SquareSize;
                     gs.Location = new Point(xPos, yPos);
                     xPos = xPos + this.SquareSize;
+
 
                     // Finally, add it.
                     this.Controls.Add(gs);
@@ -546,7 +520,7 @@ namespace BovineCodeCracker
             ResultsHeaderLabelFormatter(p2resultsHeaderLabel);
             this.Controls.Add(p2resultsHeaderLabel);
 
-            int xPos = (this.SquareSize * this.GameControl.CodeLength * 2) - this.SquareSize;
+            int xPos = (this.SquareSize * this.GameControl.CodeLength * 2);
             int yPos = (this.SquareSize * this.GameControl.AttemptsAllowed) + this.SquareSize;
 
             for (int y = 0; y < this.GameControl.AttemptsAllowed; y++)
@@ -555,14 +529,13 @@ namespace BovineCodeCracker
 
                 for (int x = 0; x < this.GameControl.CodeLength; x++)
                 {
-                    gs = this.attemptsArrayP2[x, y];
                     gs = new GuessSpot(this.GameControl, this);
                     gs.Row = y;
                     gs.Col = x;
                     gs.Width = this.SquareSize;
                     gs.Height = this.SquareSize;
-                    xPos = xPos + gs.Width;
                     gs.Location = new Point(xPos, yPos);
+                    xPos = xPos + this.SquareSize;
 
                     // Finally, add it.
                     this.Controls.Add(gs);
@@ -571,11 +544,11 @@ namespace BovineCodeCracker
 
                 labelOutputResults = new LabelResults(this);
                 this.listOfResultsP2.Add(labelOutputResults);
-                labelOutputResults.Location = new Point(xPos + this.SquareSize, yPos);
+                labelOutputResults.Location = new Point(xPos, yPos);
                 this.Controls.Add(labelOutputResults);
                 labelOutputResults.Name = labelOutputResults.Name + y;
 
-                xPos = (this.SquareSize * this.GameControl.CodeLength * 2) - this.SquareSize;
+                xPos = (this.SquareSize * this.GameControl.CodeLength * 2);
                 yPos = yPos - this.SquareSize;
             }
 
@@ -587,6 +560,34 @@ namespace BovineCodeCracker
                 }
             }
         }
+
+
+        private void NameLabelFormatter(Label l)
+        {
+            l.AutoSize = true;
+            l.BackColor = Color.Transparent;
+            l.ForeColor = Color.White;
+            l.Font = new Font("Century Gothic", this.SquareSize * 1 / 3, FontStyle.Bold);
+        }
+
+        private void GuessesLabelFormatter(Label l)
+        {
+            l.Text = "Attempts:";
+            l.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
+            l.AutoSize = true;
+            l.BackColor = Color.Transparent;
+            l.ForeColor = Color.White;
+        }
+
+        private void ResultsHeaderLabelFormatter(Label l)
+        {
+            l.Text = "Results:";
+            l.Font = new Font("Century Gothic", this.SquareSize * 1 / 5);
+            l.AutoSize = true;
+            l.BackColor = Color.Transparent;
+            l.ForeColor = Color.White;
+        }
+
 
         /// <summary>
         /// Draws the Symbol Pickers on the board.
@@ -749,12 +750,12 @@ namespace BovineCodeCracker
 
                     List<AISpot> permSpots = new List<AISpot>();
                     List<AISpot> guessSpots = new List<AISpot>();
+
                     // For each guess, loop through every permutation in MyInputList.
                     foreach (string perm in this.gameControl.ActivePlayer.MyInputList)
                     {
                         // Compare the permutation to the guess.
                         // Turn each of the two strings into a list of AISpots.
-                        
 
                         for (int i = 0; i < this.gameControl.CodeLength; i++)
                         {
